@@ -1,10 +1,8 @@
-# This script will mirror all the repositories of a sepcific ornganization on your local. All the git repos will be created at the same location than 
+# This script mirrors all the repositories of a sepcific ornganization on your local. All the git repos will be created at the same location than 
 # the script. The parameters to be passed at the run are: the name of the organization and optionally the base URL (without the repo name) to the new
 # remote location
 #
-#
 # Author: Julien Brun
-# Last updated: 2016/08/26
 # Contact: SciComp@nceas.ucsb.edu
 
 
