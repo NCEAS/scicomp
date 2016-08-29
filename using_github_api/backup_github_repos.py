@@ -21,7 +21,7 @@ def mirror_cloning_org(org):
 	of an organization on GitHub.com'''
 	
 	# Create the URL for the organization
-	my_git_org_url = git_org_url %(org))
+	my_git_org_url = git_org_url %(org)
 	
 	# Get the repos listing
 	r = requests.get(my_git_org_url)
