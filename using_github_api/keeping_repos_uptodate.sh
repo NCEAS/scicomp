@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
+REPOPTH='/home/shares/github_backup/'
 
-
-for d in *.git; do
+for d in ${REPOPTH}*.git; do
     if [ -d ${d} ]; then
         # Will not run if no directories are available
         echo updating the repo $d
@@ -9,6 +9,5 @@ for d in *.git; do
         cd $d
         git fetch -p origin
         cd ..
-        
     fi
 done
