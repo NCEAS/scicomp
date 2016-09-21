@@ -18,6 +18,8 @@ git_org_url = "https://api.github.com/orgs/%s/repos?per_page=300"
 
 my_destination_URL =  None
 
+my_local_path = "/home/shares/github_backup/"
+
 
 
 ## Functions
@@ -73,7 +75,7 @@ def updating_local_repo(repo):
 		fetch_update(my_repo_name)
 	else:
 		# Clone the repository if it does not exists locally
-		print("Fetching information for repository {}.format(my_repo_name)")
+		#print("Cloning repository {}".format(my_repo_name))
 		os.system("git clone --mirror " + repo['clone_url'])
 	# Set  remote
 	if my_destination_URL:
@@ -85,7 +87,12 @@ def updating_local_repo(repo):
 
 if __name__=="__main__":
 	# Get the organization name passed as a variable as well as the new repo destination, if defined
-	if  len(sys.argv) > 2:
+	if len(sys.argv) > 3:
+		# Get the destination URL was set
+		my_local_path = sys.argv[3]
+		my_destination_URL =  sys.argv[2]
+		my_org = sys.argv[1]
+	elif  len(sys.argv) > 2:
 		# Get the destination URL was set
 		my_destination_URL =  sys.argv[2]
 		my_org = sys.argv[1]
@@ -101,6 +108,7 @@ if __name__=="__main__":
 	# Check if repo_listing is not None
 	if repo_listing:
 		#Loop through the repo
+		os.chdir(my_local_path)
 		for my_repo in repo_listing:
 			updating_local_repo(my_repo)
 
