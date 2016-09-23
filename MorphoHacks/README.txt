@@ -34,7 +34,7 @@ MainScript.R Instructions:
 	defined values for missing data. Otherwise, ignore the 
 	variable.
 
-	3. Source MainScript.R. 
+	3. Source WriteUniqueFieldValues.R 
 
 	4. Look for files named after your dataset’s field names. Any 
 	junk columns will be named “X”, “X.1”, X.2”, and so on. If 
@@ -42,6 +42,7 @@ MainScript.R Instructions:
 	subsequent rows representing values for each variable, and if 
 	your data columns are contiguous, then “X” represents the
 	first column after your last legitimate data column.
+
 	5. Clear the contents of any junk “columns” you observe.
 	(Your data may not be organized as described in step 4, so it 
 	may take some observation to figure out what part of your 
@@ -49,8 +50,7 @@ MainScript.R Instructions:
 
 Purpose of scripts:
 
-	Morpho has several major limitations with respect to user-
-	friendliness. Many applications—Morpho and R included—will 
+	Many applications—Morpho and R included—will 
 	read in junk “columns” if any column outside of the data has 
 	any kind of user input. This includes white space. It is 
 	often hard to spot these columns until they are read into an 
