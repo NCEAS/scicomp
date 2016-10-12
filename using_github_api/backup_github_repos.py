@@ -1,15 +1,19 @@
-#!/usr/local/bin/python
+#!/usr/bin/python
+""" 
+Python script mirroring all the repositories of a sepcific GitHub organization on your local machine.
+By default, all the git repositories will be created at the same location than the script. 
+The parameters that can be passed at the run are: the name of the organization and 
+optionally the base URL (without the repo name) to the new remote location and the path of the local repo on the local machine
+Note: this script can be used as cron job. To do so, move the script in `/etc/cron.daily` removing the .py extension 
+"""
 
-# This script mirrors all the repositories of a sepcific ornganization on your local. All the git repos will be created at the same location than
-# the script. The parameters to be passed at the run are: the name of the organization and optionally the base URL (without the repo name) to the new
-# remote location
-#
 # Author: Julien Brun, ORCID 0000-0002-7751-6238
 # Contact: SciComp@nceas.ucsb.edu
 
 
 
 import sys,os,requests
+import logging,time #used to create a log file
 
 ## Constants
 
@@ -17,9 +21,9 @@ import sys,os,requests
 git_org_url = "https://api.github.com/orgs/%s/repos?per_page=300"
 
 my_destination_URL =  None
-
 my_local_path = "/home/shares/github_backup/"
-
+local_org  = "nceas"
+log_file = "/var/log/github_backup.log"
 
 
 ## Functions
@@ -74,10 +78,10 @@ def updating_local_repo(repo):
 		# Fetch the updates
 		fetch_update(my_repo_name)
 	else:
-		# Clone the repository if it does not exists locally
+		# Clone the repository if it does not exist locally
 		#print("Cloning repository {}".format(my_repo_name))
 		os.system("git clone --mirror " + repo['clone_url'])
-	# Set  remote
+	# Set remote
 	if my_destination_URL:
 		setting_new_remote(repo['name'],my_destination_URL)
 
@@ -86,21 +90,25 @@ def updating_local_repo(repo):
 ## Main
 
 if __name__=="__main__":
+	# Write a log file
+	logging.basicConfig(filename=log_file,level=logging.DEBUG)
+	time_run = time.strftime("%c")
+	logging.info("Time of run:  %s" % time_run)
+
 	# Get the organization name passed as a variable as well as the new repo destination, if defined
 	if len(sys.argv) > 3:
-		# Get the destination URL was set
+		# Get the local path that was set
 		my_local_path = sys.argv[3]
 		my_destination_URL =  sys.argv[2]
 		my_org = sys.argv[1]
 	elif  len(sys.argv) > 2:
-		# Get the destination URL was set
+		# Get the destination URL that was set
 		my_destination_URL =  sys.argv[2]
 		my_org = sys.argv[1]
 	elif len(sys.argv) > 1:
 		my_org = sys.argv[1]
-	else:
-		print("No organization was specified")
-		sys.exit()
+	else len(sys.argv) == 1:
+		my_org = local_org
 
 	# Mirror all the repos within the organization
 	repo_listing = getting_repo_listing(my_org)
