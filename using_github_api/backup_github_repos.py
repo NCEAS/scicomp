@@ -29,7 +29,7 @@ log_file = "/var/log/github_backup.log"
 ## Functions
 
 def setting_new_remote(the_repo,remote_base_url):
-	'''Add a push remote to the mirrored repo'''
+	"""Add a push remote to the mirrored repo"""
 	# Get the current/top path
 	top_path = os.getcwd()
 	# Build the repo path
@@ -44,7 +44,7 @@ def setting_new_remote(the_repo,remote_base_url):
 
 
 def getting_repo_listing(org):
-	'''Get the listing of all the repositories in a specific GitHub organization'''
+	"""Get the listing of all the repositories in a specific GitHub organization"""
 	# Create the URL for the organization
 	my_git_org_url = git_org_url %(org)
 	# Get the repos listing
@@ -60,7 +60,7 @@ def getting_repo_listing(org):
 
 
 def fetch_update(repo_to_fetch):
-	'''fetching the updates for an existing mirrored repository'''
+	"""fetching the updates for an existing mirrored repository"""
 	# Fetch updates
 	os.chdir(repo_to_fetch)
 	print("Fetching information for repository {}".format(repo_to_fetch))
@@ -69,8 +69,8 @@ def fetch_update(repo_to_fetch):
 
 
 def updating_local_repo(repo):
-	'''Mirror a repository of an organization on GitHub.com;
-	Check if the repo already exist locally and in this case fetch the updates'''
+	"""Mirror a repository of an organization on GitHub.com;
+	Check if the repo already exist locally and in this case fetch the updates"""
 	# Adapted from https://gist.github.com/caniszczyk/3856584 and https://github.com/ameygat/githuballrepo/commit/f0a81ace7f22194f1f36369568c577daa6ae8048
 	my_repo_name = "".join([repo['name'],".git"])
 	# Check if repository alread exists
