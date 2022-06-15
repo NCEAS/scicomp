@@ -1,3 +1,6 @@
+This repository has been archived, please refer to https://github.com/NCEAS/scicomptasks for the most up-to-date version of this content
+
+
 --
 # Miscellaneous scripts developed by NCEAS Scientific Computing team
 
